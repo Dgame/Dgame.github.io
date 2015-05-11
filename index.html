@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>D needs...</title>
+        <link rel="shortcut icon" href="Mars-icon.png" />
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    </head>
+    <style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        width: 90%;
+        margin: auto;
+
+        font-size: 1em;
+        font-family: georgia, verdana, arial;
+    }
+
+    a {
+        color: #123;
+        text-decoration: none;
+
+        border-bottom: 1px dashed #ddd;
+    }
+
+    a:hover {
+        border-bottom: 1px solid #ddd;
+    }
+
+    pre, code {
+        font-size: 0.9em;
+        font-family: monospace, consolas;
+    }
+
+    h1 {
+        font-size: 2.2em;
+        color: #123;
+        padding: 25px;
+        padding-left: 250px;
+        margin-bottom: 25px;
+        border-bottom: 1px dashed #ddd;
+        letter-spacing: 1px;
+        word-spacing: 4px;
+    }
+
+    h2 {
+        font-size: 1.3em;
+        padding-left: 5px;
+        margin-top: 15px;
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+        word-spacing: 4px;
+    }
+
+    h2:before {
+        content: '...';
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    ul.circle-list {
+        list-style-type: circle;
+        padding-left: 25px;
+        padding-bottom: 25px;
+        padding-top: 15px;
+        border-top: 1px dashed #ddd;
+    }
+
+    ul.circle-list li {
+        height: 30px;
+    }
+
+    ul#menu {
+        position: fixed;
+        top: 100px;
+        left: 25px;
+
+        list-style-type: none;
+        width: 280px;
+    }
+
+    ul#menu li {
+        height: 35px;
+    }
+
+    ul#menu li a {
+        font-size: 1.1em;
+    }
+
+    div#content {
+        margin-left: 250px;
+        padding: 15px;
+        border-left: 1px solid #ddd;
+        line-height: 25px;
+    }
+
+    div#content p {
+        padding-left: 25px;
+        margin-bottom: 25px;
+    }
+
+    .fixed {
+        background-color: darkgreen;
+        color: #fff;
+    }
+
+    .wont-fix {
+        background-color: #aaa;
+        color: #fff;
+    }
+
+    .unknown {
+        background-color: darkorange;
+        color: #fff;
+    }
+
+    .rejected {
+        background-color: darkred;
+        color: #fff;
+    }
+
+    .in-progress {
+        background-color: darkblue;
+        color: #fff;
+    }
+
+    ul#color-desc {
+        margin-left: 300px;
+        margin-bottom: 50px;
+        list-style-type: none;
+    }
+
+    ul#color-desc li {
+        float: left;
+        padding-right: 100px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .desc {
+        display: inline-block;
+        margin-right: 5px;
+        border-radius: 5px;
+        width: 10px;
+        height: 10px; 
+    }
+
+    /* D Code Highlighting */
+
+    .kwrd { color: #b58900; font-weight: bold;  }
+    .com  { color: #93a1a1; font-style: italic; }
+    .num  { color: #dc322f; font-weight: bold;  }
+    .str  { color: #2aa198; font-style: italic; }
+    .op   { color: #586e75; font-weight: bold;  }
+    .type { color: #268bd2; font-weight: bold;  }
+    .cons { color: #859900; font-weight: bold;  }
+    </style>
+<body>
+<h1>D needs...</h1>
+
+<ul id="color-desc">
+    <li><span class="desc fixed"></span>Fixed</li>
+    <li><span class="desc wont-fix"></span>Wont-Fix</li>
+    <li><span class="desc unknown"></span>Unknown</li>
+    <li><span class="desc rejected"></span>Rejected</li>
+    <li><span class="desc in-progress"></span>In Progress</li>
+</ul>
+
+<a name="top"></a>
+<ul id="menu">
+    <li><a href="#auto-ref">auto ref for non-templates</a></li>
+    <li><a href="#attr-neg">negation of attributes</a></li>
+    <li><a href="#emplace-new">emplacement new</a></li>
+    <li><a href="#static-array-literal">static array literal syntax</a></li>
+    <li><a href="#fixed-length-static-array">auto length for fixed-length arrays</a>
+</ul>
+<div id="content">
+<a name="auto-ref"></a>
+<h2 class="unknown">auto ref for non-templates</h2>
+<p>
+    Currently <code><span class="kwrd">auto</span> <span class="kwrd">ref</span></code> only works with templates. A new function/method is generated for each <code><span class="kwrd">auto</span> <span class="kwrd">ref</span></code> parameter, depending on whether the parameter is passed as <em>lvalue</em> or <em>rvalue</em>. This results in template bloat, since for each template which uses <code><span class="kwrd">auto</span> <span class="kwrd">ref</span></code> parameters, <code>2^N</code> (whereby N is the number of <code><span class="kwrd">auto</span> <span class="kwrd">ref</span></code> parameter) functions/methods are generated.
+    <br />
+    There where several attempts and discussions to solve this problem and make <code><span class="kwrd">auto</span> <span class="kwrd">ref</span></code> useable <strong>without</strong> templates. But since this would change the semantic for <code><span class="kwrd">auto</span> <span class="kwrd">ref</span></code> for non-template function, <code><span class="kwrd">auto</span> <span class="kwrd">ref</span></code> cannot be "abused" for it. An attempt to introduce <code><span class="kwrd">scope</span> <span class="kwrd">ref</span></code> / <code><span class="kwrd">in</span> <span class="kwrd">ref</span></code> for that (<a href="http://wiki.dlang.org/DIP36">DIP36</a>) was rejected.
+</p>
+<ul class="circle-list">
+    <li><a href="http://forum.dlang.org/thread/4F84D6DD.5090405@digitalmars.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/ckrpqmjbhfhxhqaysryv@forum.dlang.org">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/km3k8v$80p$1@digitalmars.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/ylebrhjnrrcajnvtthtt@forum.dlang.org#post-mailman.692.1365561669.4724.digitalmars-d:40puremagic.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/mailman.2989.1356370854.5162.digitalmars-d@puremagic.com">Forum Discussion</a></li>
+</ul>
+
+<a href="#top">Top</a>
+
+<a name="attr-neg"></a>
+<h2 class="unknown">negation of attributes</h2>
+<p>
+Currently it is impossible to revert / negate attributes. The biggest problem for some D users is the non-existing reversion of <code><span class="kwrd">final</span></code> (since D is virtual by default, a common solution is to declare <code><span class="kwrd">final</span>:</code> on the top of a class/struct). <br /><code><span class="kwrd">virtual</span></code> was shortly introduced [1][2] but then rejected and the PR reverted. That was the start for a (new) forum discussion about the possibility to reverts existing attributes. A few suggested methods were:</p>
+<pre>
+<span class="op">!</span><span class="kwrd">final</span>
+<span class="op">~</span><span class="kwrd">final</span>
+<span class="kwrd">final</span>(<span class="kwrd">false</span>)
+@disable <span class="kwrd">final</span>
+</pre>
+<br />
+<p>
+and <code><span class="kwrd">default</span></code> [3] to reset the current behaviour to the default. Although <code>attr(<span class="kwrd">false</span>)</code> (e.g. <code><span class="kwrd">final</span>(<span class="kwrd">false</span>)</code>) seems to fit for the majority, nobody has implemented it until now.
+</p>
+<ul class="circle-list">
+    <li>[1] <a href="https://issues.dlang.org/show_bug.cgi?id=11616">Issue</a></li>
+    <li><a href="http://forum.dlang.org/thread/yzsqwejxqlnzryhrkfuq@forum.dlang.org?page=28#post-koqkhc:244nn:241:40digitalmars.com">Forum Discussion</a></li>
+    <li>[2] <a href="https://github.com/D-Programming-Language/dmd/commit/b900262a9cbde7247a5eb0abc9de218500f7e229">Github PR</a></li>
+    <li>[3] <a href="http://forum.dlang.org/thread/jualpglybavqbpdfhhyf@forum.dlang.org">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/kok86c$126l$1@digitalmars.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/lfqoan$5qq$1@digitalmars.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/lfqoan$5qq$1@digitalmars.com?page=24">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/hfmulninvghjntqkpguk@forum.dlang.org?page=2#post-mailman.2670.1403374332.2907.digitalmars-d:40puremagic.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/mailman.1189.1371539714.13711.digitalmars-d@puremagic.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/mailman.840.1332033836.4860.digitalmars-d@puremagic.com">Forum Discussion</a></li>
+</ul>
+
+<a href="#top">Top</a>
+
+<a name="emplace-new"></a>
+<h2 class="in-progress">emplacement new</h2>
+<p>
+In C++ it is a common practice to reuse your existing memory:</p>
+<pre>
+<span class="kwrd">class</span> Foo { }
+Foo<span class="op">*</span> f <span class="op">=</span> <span class="kwrd">new</span> Foo();
+<span class="kwrd">new</span> (f) Foo(); <span class="com">// reuse existing memory</span>
+</pre>
+<br />
+<p>
+Since D based on a GC the GC collects your memory and then (eventually) reuse it, but there is (currently) no (easy) way to reuse your memory by yourself.<br />But thanks to D's capabilities Phobos offers <a href="http://dlang.org/phobos/std_conv.html#.emplace">emplace</a>. This function can emplace a object/struct into a given memory chunk. But to reuse your memory you have to write:</p>
+<pre>
+<span class="kwrd">class</span> Foo { }
+Foo f <span class="op">=</span> <span class="kwrd">new</span> Foo();
+f <span class="op">=</span> emplace<span class="op">!</span>(Foo)((<span class="kwrd">cast</span>(<span class="type">void</span><span class="op">*</span>)f)[0 <span class="op">..</span> __traits(classInstanceSize, Foo)], ARGUMENTS...);
+</pre>
+<br />
+<p>This is neither safe, nice nor short. And since D wont implement emplacement new like C++, were stuck with emplace.<br />
+But we have luck, because a PR is made to introduce an emplace function to simplify the user call:</p>
+<pre>
+f <span class="op">=</span> emplace(f, ARGUMENTS...);
+</pre>
+
+<br />
+
+<ul class="circle-list">
+    <li><a href="http://forum.dlang.org/thread/pllencnccodsfydjjqhw@forum.dlang.org">Forum Discussion</a></li>
+    <li><a href="https://issues.dlang.org/show_bug.cgi?id=14470">Issue</a></li>
+    <li><a href="https://github.com/D-Programming-Language/phobos/pull/3234">Github PR</a></li>
+    <li><a href="http://forum.dlang.org/thread/tizepidvtrraxsvcfpxc@forum.dlang.org?page=3#post-mnmotjaywyewdcbhtrgy:40forum.dlang.org">Forum Discussion</a></li>
+</ul>
+
+<a href="#top">Top</a>
+
+<a name="static-array-literal"></a>
+<h2 class="rejected">static array literal syntax</h2>
+<p>
+    D's arrays are a big improvement over the old C Arrays, but they comes with a cost: they are dynamic which means heap allocated. You can, of course, use a static array, but how did you return a static array?</p>
+<pre>
+<span class="type">int</span>[] test1() {
+    <span class="type">int</span>[<span class="num">3</span>] tmp <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+    <span class="kwrd">return</span> tmp; <span class="com">// Error: escaping reference to local tmp</span>
+}
+
+<span class="type">int</span>[] test2() {
+    <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// works, but this is heap allocated</span>
+}
+</pre>
+<br />
+<p>That's why some D users wanted a way to specify that they want a static array:</p>
+<pre>
+<span class="type">int</span>[] test() {
+    <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]s; <span class="com">// this is stack allocated</span>
+}
+</pre>
+<br />
+<p>
+    Note the <code>s</code>. That would say the compiler "Hey, don't allocate this on the heap, it is only for stack usage".<br />
+    There were a few discussions and one PR, but the issue was rejected because it is possible to implement such behaviour with the current language features:</p>
+<pre>
+@safe
+@property
+T[] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <span class="kwrd">ref</span> T[n] values) {
+    <span class="kwrd">return</span> values;
+}
+
+<span class="type">int</span>[] test() {
+    <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]<span class="op">.</span>s; <span class="com">// this is stack allocated</span>
+}
+</pre>
+<br />
+<p>Thanks to the great capabilities of D's UFCS this is possible.</p>
+<ul class="circle-list">
+    <li><a href="http://forum.dlang.org/thread/mvfqqlnnxkjtszqvzsvq@forum.dlang.org?page=1">Forum Discussion</a></li>
+    <li><a href="https://github.com/D-Programming-Language/dmd/pull/2952">Github PR</a></li>
+    <li><a href="https://issues.dlang.org/show_bug.cgi?id=6421">Issue</a></li>
+    <li><a href="https://issues.dlang.org/show_bug.cgi?id=8008">Issue</a></li>
+</ul>
+
+<a href="#top">Top</a>
+
+<a name="fixed-length-static-array"></a>
+<h2 class="rejected">auto length for fixed-length arrays</h2>
+<p>D's arrays are a big improvement over the old C Arrays, but they comes with a cost: they are dynamic which means heap allocated. You can, of course, use a static array, but your have to count your elements if you want this.</p>
+<pre>
+<span class="type">int</span>[] a <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// heap allocated</span>
+<span class="type">int</span>[<span class="num">3</span>] b <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// stack allocated</span>
+</pre>
+<br />
+<p>No problem. But if you have more elements it could be nasty to count them. That's why some D users wanted that the compiler does that for them.</p>
+<pre>
+<span class="type">int</span>[$] c <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// the compiler detects the dollar and count the elements for us</span>
+</pre>
+<br />
+<p>This was already introduced but then rejected, because it is possible to implement such behaviour with the current language features (see also <a href="#static-array-literal">static array literal syntax</a>):</p>
+<pre>
+@safe
+@property
+T[] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <span class="kwrd">ref</span> T[n] values) {
+    <span class="kwrd">return</span> values;
+}
+
+<span class="type">int</span>[] c <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>].s; <span class="com"></span>
+</pre>
+<br />
+<p>Thanks to the great capabilities of D's UFCS this is possible.</p>
+<ul class="circle-list">
+    <li><a href="http://forum.dlang.org/thread/mvfqqlnnxkjtszqvzsvq@forum.dlang.org?page=1">Forum Discussion</a></li>
+    <li><a href="https://github.com/D-Programming-Language/dmd/pull/2958">Github PR</a></li>
+    <li><a href="https://github.com/D-Programming-Language/dmd/pull/3615">Github PR</a></li>
+    <li><a href="https://issues.dlang.org/show_bug.cgi?id=481">Issue</a></li>
+    <li><a href="https://issues.dlang.org/show_bug.cgi?id=14077">Issue</a></li>
+    <li><a href="https://issues.dlang.org/show_bug.cgi?id=14070">Issue</a></li>
+    <li><a href="http://forum.dlang.org/thread/mag5hp$105a$1@digitalmars.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/mag5hp$105a$1@digitalmars.com?page=2#post-owhpsouuiiicftssekuo:40forum.dlang.org">Forum Discussion</a></li>
+</ul>
+
+<a href="#top">Top</a>
+
+</div>
+</body>
+</html>
