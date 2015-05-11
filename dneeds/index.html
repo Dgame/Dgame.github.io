@@ -136,7 +136,7 @@ f <span class="op">=</span> emplace(f, ARGUMENTS...);
 <pre>
 @safe
 @property
-T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <span class="kwrd">ref</span> T[n] values) {
+T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <span class="kwrd">ref</span> T[n] values) <span class="kwrd">pure</span> <span class="kwrd">nothrow</span> {
     <span class="kwrd">return</span> values;
 }
 
@@ -172,7 +172,7 @@ T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <sp
 <pre>
 @safe
 @property
-T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <span class="kwrd">ref</span> T[n] values) {
+T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <span class="kwrd">ref</span> T[n] values) <span class="kwrd">pure</span> <span class="kwrd">nothrow</span> {
     <span class="kwrd">return</span> values;
 }
 
