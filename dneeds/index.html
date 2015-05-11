@@ -113,19 +113,37 @@ f <span class="op">=</span> emplace(f, ARGUMENTS...);
 <p>
     D's arrays are a big improvement over the old C Arrays, but they comes with a cost: they are dynamic which means heap allocated. You can, of course, use a static array, but how did you return a static array?</p>
 <pre>
-<span class="type">int</span>[] test1() {
+<span class="type">int</span>[3] test() {
+    <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// works, but you have to count the elements</span>
+}
+
+<span class="type">int</span>[3] test1() {
+    <span class="type">int</span>[<span class="num">3</span>] tmp <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+    <span class="kwrd">return</span> tmp; <span class="com">// works, but you have to count the elements and get a copy</span>
+}
+
+<span class="type">int</span>[] test2() {
     <span class="type">int</span>[<span class="num">3</span>] tmp <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
     <span class="kwrd">return</span> tmp; <span class="com">// Error: escaping reference to local tmp</span>
 }
 
-<span class="type">int</span>[] test2() {
+<span class="type">int</span>[] test3() {
     <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// works, but this is heap allocated</span>
+}
+
+<span class="type">auto</span> test4() {
+    <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// works, but this is also heap allocated</span>
+}
+
+<span class="type">auto</span> test5() {
+    <span class="type">int</span>[<span class="num">3</span>] tmp <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+    <span class="kwrd">return</span> tmp; <span class="com">// works, but you still get a copy</span>
 }
 </pre>
 <br />
 <p>That's why some D users wanted a way to specify that they want a static array:</p>
 <pre>
-<span class="type">int</span>[] test() {
+<span class="type">auto</span> test() {
     <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]s; <span class="com">// this is stack allocated</span>
 }
 </pre>
@@ -140,7 +158,7 @@ T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <sp
     <span class="kwrd">return</span> values;
 }
 
-<span class="type">int</span>[] test() {
+<span class="type">auto</span> test() {
     <span class="kwrd">return</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]<span class="op">.</span>s; <span class="com">// this is stack allocated</span>
 }
 </pre>
