@@ -157,7 +157,7 @@ T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <sp
 
 <a name="fixed-length-static-array"></a>
 <h2 class="rejected">auto length for fixed-length arrays</h2>
-<p>D's arrays are a big improvement over the old C Arrays, but they comes with a cost: they are dynamic which means heap allocated. You can, of course, use a static array, but your have to count your elements if you want this.</p>
+<p>D's arrays are a big improvement over the old C Arrays, but they comes with a cost: they are dynamic which means heap allocated. You can, of course, use a static array, but you have to count your elements if you want this.</p>
 <pre>
 <span class="type">int</span>[] a <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// heap allocated</span>
 <span class="type">int</span>[<span class="num">3</span>] b <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]; <span class="com">// stack allocated</span>
