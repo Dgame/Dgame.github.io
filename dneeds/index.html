@@ -78,7 +78,7 @@ and <code><span class="kwrd">default</span></code> [3] to reset the current beha
 <p>
 In C++ it is a common practice to reuse your existing memory:</p>
 <pre>
-<span class="kwrd">class</span> Foo { }
+<span class="kwrd">class</span> Foo { };
 Foo<span class="op">*</span> f <span class="op">=</span> <span class="kwrd">new</span> Foo();
 <span class="kwrd">new</span> (f) Foo(); <span class="com">// reuse existing memory</span>
 </pre>
