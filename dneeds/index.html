@@ -177,6 +177,9 @@ T[n] s(T, <span class="type">size_t</span> n)(<span class="kwrd">auto</span> <sp
 }
 
 <span class="type">int</span>[] c <span class="op">=</span> [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>].s; <span class="com"></span>
+writeln(a, <span class="str">", "</span>, <span class="kwrd">typeof</span>(a).stringof); <span class="com">// prints [1, 2, 3], int[]</span>
+<span class="kwrd">auto</span> d <span class="op">=</span> [1, 2, 3].s;
+writeln(d, <span class="str">", "</span>, <span class="kwrd">typeof</span>(d).stringof); <span class="com">// prints [1, 2, 3], int[3]</span>
 </pre>
 <br />
 <p>Thanks to the great capabilities of D's UFCS this is possible.</p>
