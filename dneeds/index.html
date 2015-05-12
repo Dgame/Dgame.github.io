@@ -98,7 +98,7 @@ test(a); <span class="com">// by ref</span>
 <a name="attr-neg"></a>
 <h2 class="unknown">negation of attributes</h2>
 <p>
-Currently it is impossible to revert / negate attributes. The biggest problem for some D users is the non-existing reversion of <code><span class="kwrd">final</span></code> (since D is virtual by default, a common solution is to declare <code><span class="kwrd">final</span>:</code> on the top of a class). <br /><code><span class="kwrd">virtual</span></code> was shortly introduced [1][2] but then rejected and the PR reverted. That was the start for a (new) forum discussion about the possibility to reverts existing attributes. A few suggested methods were:</p>
+Currently it is impossible to revert / negate attributes. The biggest problem for some D users is the non-existing reversion of <code><span class="kwrd">final</span></code> (since D is virtual by default, a common solution is to declare <code><span class="kwrd">final</span>:</code> on the top of a class, see also <a href="#final-by-default">final by default</a>). <br /><code><span class="kwrd">virtual</span></code> was shortly introduced [1][2] but then rejected and the PR reverted. That was the start for a (new) forum discussion about the possibility to reverts existing attributes. A few suggested methods were:</p>
 <pre>
 <span class="op">!</span><span class="kwrd">final</span>
 <span class="op">~</span><span class="kwrd">final</span>
