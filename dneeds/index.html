@@ -25,6 +25,7 @@
     <li><a href="#emplace-new">emplacement new</a></li>
     <li><a href="#static-array-literal">static array literal syntax</a></li>
     <li><a href="#fixed-length-static-array">auto length for fixed-length arrays</a></li>
+    <li><a href="#final-by-default">final by default</a></li>
 </ul>
 <div id="content">
 <a name="auto-ref"></a>
@@ -219,6 +220,48 @@ writeln(d, <span class="str">", "</span>, <span class="kwrd">typeof</span>(d).st
     <li><a href="http://forum.dlang.org/thread/mag5hp$105a$1@digitalmars.com?page=2#post-owhpsouuiiicftssekuo:40forum.dlang.org">Forum Discussion</a></li>
 </ul>
 
+<a href="#top">Top</a>
+
+<a name="final-by-default"></a>
+<h2 class="rejected">final by default</h2>
+<p>
+    In contrast to C++, D is virtual-by-default, like Java. The result is a simple and great possibility to expand your classes, but it gets often forgotten and it has a undeniable impact on the performance of your application.<br />
+    Therefore some D users wanted final-by-default and a virtual keyword (see also <a href="#attr-neg">attribute negation</a>). Although it looked like it would be accepted [1] [2] (see also<a href="http://wiki.dlang.org/DIP51">DIP 51</a>), it was finally rejected [3], because the code of one Client was affected [4] by this change and D almost lost him.
+</p>
+<p>
+    Yor prevent virtual-by-default you can put <code><span class="kwrd">final</span>:</code> on the top your your class:
+</p> 
+<pre>
+<span class="kwrd">class</span> Foo {
+    <span class="type">void</span> test1();<span class="com"> // virtual by default</span>
+    <span class="kwrd">final</span> <span class="type">void</span> test2();<span class="com"> // final</span>
+}
+
+<span class="kwrd">class</span> Bar {
+<span class="kwrd">final</span>:<span class="com"> // <- this prevents virtual-by-default</span>
+    <span class="type">void</span> test1();<span class="com"> // final</span>
+    <span class="type">void</span> test2();<span class="com"> // final</span>
+}
+</pre>
+<br />
+<p>
+    The disadvantage is, that (because there is currently no way to <a href="#neg-attr">revert attributes</a>) you cannot undo it. Instead you can and should mark every method, which is not meant to be virtual, with <code><span class="kwrd">final</span></code>
+</p>
+
+<ul class="circle-list">
+    <li>[1] <a href="http://forum.dlang.org/thread/yzsqwejxqlnzryhrkfuq@forum.dlang.org?page=28#post-koqkhc:244nn:241:40digitalmars.com">Forum Discussion</a></li>
+    <li>[2] <a href="http://forum.dlang.org/thread/lfqoan$5qq$1@digitalmars.com#post-lfqoan:245qq:241:40digitalmars.com">Forum Discussion</a></li>
+    <li>[3] <a href="http://forum.dlang.org/thread/lfqoan$5qq$1@digitalmars.com?page=5#post-lfrdst:24oav:241:40digitalmars.com">Forum Discussion</a></li>
+    <li>[4] <a href="http://forum.dlang.org/thread/lfgot7$8lg$1@digitalmars.com#post-lfgot7:248lg:241:40digitalmars.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/yqgmrahwjccwoahyuuli@forum.dlang.org">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/cqsuwuoaxxltmazgtpix@forum.dlang.org#post-cqsuwuoaxxltmazgtpix:40forum.dlang.org">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/mailman.840.1332033836.4860.digitalmars-d@puremagic.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/yzsqwejxqlnzryhrkfuq@forum.dlang.org#post-yzsqwejxqlnzryhrkfuq:40forum.dlang.org">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/yzsqwejxqlnzryhrkfuq@forum.dlang.org?page=20#post-mailman.797.1370344528.13711.digitalmars-d:40puremagic.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/zkmunpiikmrezbzmehhq@forum.dlang.org?page=5#post-mailman.28.1394593500.23258.digitalmars-d:40puremagic.com">Forum Discussion</a></li>
+    <li><a href="http://forum.dlang.org/thread/bug-11616-3@https.d.puremagic.com%2Fissues%2F">Issue</a></li>
+    <li><a href="http://forum.dlang.org/thread/kok86c$126l$1@digitalmars.com">Forum Discussion</a></li>
+</ul>
 <a href="#top">Top</a>
 
 </div>
