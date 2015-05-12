@@ -42,14 +42,14 @@
     }
 }
 
-<span class="type">void</span> test()(<span class="kwrd">auto</span> <span class="kwrd">ref</span> <span class="kwrd">const</span> A) {
+<span class="type">void</span> test()(<span class="kwrd">auto</span> <span class="kwrd">ref</span> <span class="kwrd">const</span> A a) {
     writeln(<span class="str">"a.id = "</span>, a.id);
 }
 </pre>
 <br />
 <p>The <code>test</code> method above would expand to:</p>
 <pre>
-<span class="type">void</span> test(<span class="kwrd">const</span> A) {
+<span class="type">void</span> test(<span class="kwrd">const</span> A a) {
     writeln(<span class="str">"a.id = "</span>, a.id);
 }
 </pre>
@@ -61,7 +61,7 @@ test(A(<span class="num">42</span>)); <span class="com">// by move</span>
 <br />
 <p>and would expand to:</p>
 <pre>
-<span class="type">void</span> test(<span class="kwrd">ref</span> <span class="kwrd">const</span> A) {
+<span class="type">void</span> test(<span class="kwrd">ref</span> <span class="kwrd">const</span> A a) {
     writeln(<span class="str">"a.id = "</span>, a.id);
 }
 </pre>
