@@ -126,7 +126,7 @@ and <code><span class="kwrd">default</span></code> [3] to reset the current beha
 <a href="#top">Top</a>
 
 <a name="emplace-new"></a>
-<h2 class="in-progress">emplacement new</h2>
+<h2 class="rejected">emplacement new</h2>
 <p>
 In C++ it is a common practice to reuse your existing memory:</p>
 <pre>
@@ -144,11 +144,29 @@ f <span class="op">=</span> emplace<span class="op">!</span>(Foo)((<span class="
 </pre>
 <br />
 <p>This is neither safe, nice nor short. And since D wont implement emplacement new like C++, were stuck with emplace.<br />
-But we have luck, because a PR is made to introduce an emplace function to simplify the user call:</p>
+<del>But we have luck, because a PR is made to introduce an emplace function to simplify the user call:</del></p>
 <pre>
 f <span class="op">=</span> emplace(f, ARGUMENTS...);
 </pre>
 
+<br />
+
+<h4>Supplement</h4>
+<p>The PR was rejected, because some users were of the opinion, that <code>emplace</code> is an inappropriate name.<br />
+No retry with a different name was made so far.</p>
+<p>But you can make such a function by yourself:</p>
+<pre>
+T emplace(T, Args<span class="op">...</span>)(<span class="kwrd">ref</span> T obj, <span class="kwrd">aut</span> <span class="kwrd">ref</span> Args args)
+    <span class="kwrd">if</span> (<span class="kwrd">is</span>(T <span class="op">==</span> <span class="kwrd">class</span>))
+{
+    <span class="kwrd">if</span> (obj <span class="kwrd">is</span> <span class="cons">null</span>)
+        <span class="kwrd">return</span> <span class="cons">null</span>;
+
+    <span class="kwrd">enum</span> ClassSize = __traits(classInstanceSize, T);
+    <span class="type">void</span>[] buf = (<span class="kwrd">cast</span>(<span class="type">void</span><span class="op">*</span>) obj)[<span class="num">0</span> <span clas="op">..</span> ClassSize];
+    <span class="kwrd">return</span> emplace<span class="op">!</span>(T)(buf, args);
+}
+</pre>
 <br />
 
 <ul class="circle-list">
